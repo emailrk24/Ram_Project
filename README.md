@@ -1,2 +1,2 @@
-# hotel-booking-13-07-2022
+# hotel-booking-sandbox
 Created with CodeSandbox
