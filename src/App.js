@@ -3,7 +3,7 @@ import NewBooking from "./components/NewBooking";
 import "./styles.css";
 
 export default function App() {
-  const bookingEntries = [
+  let bookingEntries = [
     {
       id: 1357,
       checkInDate: new Date(2022, 6, 20),
@@ -42,10 +42,15 @@ export default function App() {
     }
   ];
 
+  const addBookingHandler = (bookingDetail) => {
+    bookingEntries = [...bookingEntries, bookingDetail];
+    console.log(bookingEntries);
+  };
+
   return (
     <div className="App">
       <h1>Hello there...</h1>
-      <NewBooking />
+      <NewBooking onSaveBooking={addBookingHandler} />
       <BookingEntries bookingEntries={bookingEntries} />
     </div>
   );

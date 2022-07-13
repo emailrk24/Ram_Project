@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./BookingForm.css";
 
-export default function BookingForm() {
+export default function BookingForm(props) {
   const [enteredCheckInDate, setEnteredCheckInDate] = useState("");
   const [enteredCheckOutDate, setEnteredCheckOutDate] = useState("");
   const [enteredSource, setEnteredSource] = useState("");
@@ -84,23 +84,25 @@ export default function BookingForm() {
       bookingStatus: enteredBookingStatus
     };
 
-    console.log(bookingDetail);
+    // console.log(bookingDetail);
 
-    setEnteredCheckInDate = "";
-    setEnteredCheckOutDate = "";
-    setEnteredSource = "";
-    setEnteredBookingId = "";
-    setEnteredRoomNumber = "";
-    setEnteredNumberOfRooms = "";
-    setEnteredRentPerDay = "";
-    setEnteredEcAmount = "";
-    setEnteredLcAmount = "";
-    setEnteredOtherBill = "";
-    setEnteredCashAtHotel = "";
-    setEnteredUPI = "";
-    setEnteredEDC = "";
-    setEnteredAppPaidAmount = "";
-    setEnteredBookingStatus = "";
+    props.onSaveBooking(bookingDetail);
+
+    setEnteredCheckInDate("");
+    setEnteredCheckOutDate("");
+    setEnteredSource("");
+    setEnteredBookingId("");
+    setEnteredRoomNumber("");
+    setEnteredNumberOfRooms("");
+    setEnteredRentPerDay("");
+    setEnteredEcAmount("");
+    setEnteredLcAmount("");
+    setEnteredOtherBill("");
+    setEnteredCashAtHotel("");
+    setEnteredUPI("");
+    setEnteredEDC("");
+    setEnteredAppPaidAmount("");
+    setEnteredBookingStatus("");
   };
 
   return (
@@ -110,7 +112,7 @@ export default function BookingForm() {
           <label>Check-in</label>
           <input
             type="date"
-            value="{enteredCheckInDate}"
+            value={enteredCheckInDate}
             onChange={checkInDateChangeHandler}
           ></input>
         </div>
@@ -118,7 +120,7 @@ export default function BookingForm() {
           <label>Check-out</label>
           <input
             type="date"
-            value="{enteredCheckOutDate}"
+            value={enteredCheckOutDate}
             onChange={checkOutDateChangeHandler}
           ></input>
         </div>
@@ -126,7 +128,7 @@ export default function BookingForm() {
           <label>Source (dropdown)</label>
           <input
             type="text"
-            value="{enteredSource}"
+            value={enteredSource}
             onChange={sourceChangeHandler}
           ></input>
         </div>
@@ -134,7 +136,7 @@ export default function BookingForm() {
           <label>Guest Name / Booking ID</label>
           <input
             type="text"
-            value="{enteredBookingId}"
+            value={enteredBookingId}
             onChange={bookingIdChangeHandler}
           ></input>
         </div>
@@ -142,7 +144,7 @@ export default function BookingForm() {
           <label>Room No. (tile pick)</label>
           <input
             type="text"
-            value="{enteredRoomNumber}"
+            value={enteredRoomNumber}
             onChange={roomNoChangeHandler}
           ></input>
         </div>
@@ -150,7 +152,7 @@ export default function BookingForm() {
           <label>Number of rooms (calculate)</label>
           <input
             type="text"
-            value="{enteredNumberOfRooms}"
+            value={enteredNumberOfRooms}
             onChange={noOfRoomsChangeHandler}
           ></input>
         </div>
@@ -158,7 +160,7 @@ export default function BookingForm() {
           <label>Rent per day</label>
           <input
             type="text"
-            value="{enteredRentPerDay}"
+            value={enteredRentPerDay}
             onChange={rentPerDayChangeHandler}
           ></input>
         </div>
@@ -166,7 +168,7 @@ export default function BookingForm() {
           <label>EC amount</label>
           <input
             type="number"
-            value="{enteredEcAmount}"
+            value={enteredEcAmount}
             onChange={ecAmountChangeHandler}
           ></input>
         </div>
@@ -174,7 +176,7 @@ export default function BookingForm() {
           <label>LC amount</label>
           <input
             type="number"
-            value="{enteredLcAmount}"
+            value={enteredLcAmount}
             onChange={lcAmountChangeHandler}
           ></input>
         </div>
@@ -182,7 +184,7 @@ export default function BookingForm() {
           <label>Other bill</label>
           <input
             type="number"
-            value="{enteredOtherBill}"
+            value={enteredOtherBill}
             onChange={otherBillChangeHandler}
           ></input>
         </div>
@@ -190,7 +192,7 @@ export default function BookingForm() {
           <label>Cash at hotel</label>
           <input
             type="number"
-            value="{enteredCashAtHotel}"
+            value={enteredCashAtHotel}
             onChange={cashAtHotelChangeHandler}
           ></input>
         </div>
@@ -198,7 +200,7 @@ export default function BookingForm() {
           <label>UPI</label>
           <input
             type="number"
-            value="{enteredUPI}"
+            value={enteredUPI}
             onChange={uPIChangeHandler}
           ></input>
         </div>
@@ -206,7 +208,7 @@ export default function BookingForm() {
           <label>EDC</label>
           <input
             type="number"
-            value="{enteredEDC}"
+            value={enteredEDC}
             onChange={eDCChangeHandler}
           ></input>
         </div>
@@ -214,7 +216,7 @@ export default function BookingForm() {
           <label>App paid amount</label>
           <input
             type="number"
-            value="{enteredAppPaidAmount}"
+            value={enteredAppPaidAmount}
             onChange={appPaidAmountChangeHandler}
           ></input>
         </div>
@@ -222,7 +224,7 @@ export default function BookingForm() {
           <label>Booking status</label>
           <input
             type="text"
-            value="{enteredBookingStatus}"
+            value={enteredBookingStatus}
             onChange={bookingStatusChangeHandler}
           ></input>
         </div>
