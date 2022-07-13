@@ -5,6 +5,7 @@ export default function BookingEntries(props) {
   return (
     <div className="booking-entries">
       <BookingEntry
+        id={props.bookingEntries[0].id}
         checkInDate={props.bookingEntries[0].checkInDate}
         checkOutDate={props.bookingEntries[0].checkOutDate}
         source={props.bookingEntries[0].source}
@@ -22,6 +23,7 @@ export default function BookingEntries(props) {
         bookingStatus={props.bookingEntries[0].bookingStatus}
       />
       <BookingEntry
+        id={props.bookingEntries[1].id}
         checkInDate={props.bookingEntries[1].checkInDate}
         checkOutDate={props.bookingEntries[1].checkOutDate}
         source={props.bookingEntries[1].source}

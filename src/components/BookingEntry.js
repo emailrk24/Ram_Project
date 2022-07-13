@@ -28,6 +28,13 @@ export default function BookingEntry(props) {
     );
   };
 
+  const [id, setId] = useState(props.id);
+
+  const idClickHandler = () => {
+    setId("changedId");
+    console.log(id);
+  };
+
   return (
     <div className="booking-entry">
       {/* <div className="header">
@@ -50,6 +57,9 @@ export default function BookingEntry(props) {
         <h3 className="booking-entry__price">Pending amount</h3>
         <h3>Booking status</h3>
       </div> */}
+      <h2 className="booking-entry__description" onClick={idClickHandler}>
+        {id}
+      </h2>
       <h3 className="booking-entry__date">
         {props.checkInDate.toLocaleDateString("en-GB")}
       </h3>

@@ -1,9 +1,11 @@
 import BookingEntries from "./components/BookingEntries";
+import NewBooking from "./components/NewBooking";
 import "./styles.css";
 
 export default function App() {
   const bookingEntries = [
     {
+      id: 1357,
       checkInDate: new Date(2022, 6, 20),
       checkOutDate: new Date(2022, 6, 25),
       source: "App",
@@ -21,6 +23,7 @@ export default function App() {
       bookingStatus: "INHOUSE"
     },
     {
+      id: 2468,
       checkInDate: new Date(2022, 6, 12),
       checkOutDate: new Date(2022, 6, 15),
       source: "WalkIn",
@@ -42,6 +45,7 @@ export default function App() {
   return (
     <div className="App">
       <h1>Hello there...</h1>
+      <NewBooking />
       <BookingEntries bookingEntries={bookingEntries} />
     </div>
   );

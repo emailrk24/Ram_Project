@@ -1,9 +1,9 @@
 Entities...
-
+S.No.
 Checkin date
 Checkout date
 Source
-Booking Id
+Guest name / Booking Id
 Room no.
 No. of rooms
 No. of days
