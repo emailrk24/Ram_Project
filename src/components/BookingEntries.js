@@ -11,10 +11,6 @@ export default function BookingEntries(props) {
     setFilteredMonth(selectedMonth);
   };
 
-  // const [filteredBookings, SetFilteredBookings] = useState(
-  //   props.bookingEntries
-  // );
-
   const filteredBookings = props.bookingEntries.filter(
     (booking) =>
       new Date(booking.checkInDate).toLocaleString("en-GB", {
@@ -25,6 +21,18 @@ export default function BookingEntries(props) {
       }) === filteredMonth
   );
 
+  // const filteredBookings = props.bookingEntries.filter(
+  //   (booking) =>
+  //     (new Date(booking.checkInDate).toLocaleString("en-GB", {
+  //       month: "numeric"
+  //     }) === filteredMonth &&
+  //       new Date(booking.checkInDate).getFullYear() === filteredYear) ||
+  //     (new Date(booking.checkOutDate).toLocaleString("en-GB", {
+  //       month: "short"
+  //     }) === filteredMonth &&
+  //       new Date(booking.checkOutDate).getFullYear() === filteredYear)
+  // );
+
   return (
     <div className="booking-entries">
       <BookingsFilter
@@ -34,6 +42,11 @@ export default function BookingEntries(props) {
 
       {/* dynamically populate the array into a JSX element - 
       an alternate to rendering each object from an array into a JSX element*/}
+
+      {filteredBookings.length === 0 && (
+        <p className="no-booking-entries">No bookings found</p>
+      )}
+
       {filteredBookings.map((booking) => (
         <BookingEntry
           key={booking.id}

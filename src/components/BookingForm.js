@@ -230,6 +230,9 @@ export default function BookingForm(props) {
         </div>
       </div>
       <div className="new-booking__actions">
+        <button type="button" onClick={props.onCancelBooking}>
+          Cancel
+        </button>
         <button type="submit">Add booking</button>
       </div>
     </form>

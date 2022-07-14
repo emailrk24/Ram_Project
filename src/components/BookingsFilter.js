@@ -4,6 +4,7 @@ import "./BookingsFilter.css";
 
 export default function BookingsFilter(props) {
   const filterChangeHandler = (event) => {
+    console.log(event.target.value);
     props.onChangeFilter(event.target.value);
   };
 
@@ -11,7 +12,7 @@ export default function BookingsFilter(props) {
     <div className="bookings-filter">
       <div className="bookings-filter__control">
         <label>Filter by month</label>
-        <input type="month" />
+        <input type="month" onChange={filterChangeHandler} />
         <select value={props.defaultMonth} onChange={filterChangeHandler}>
           <option value="Jan">Jan</option>
           <option value="Feb">Feb</option>
