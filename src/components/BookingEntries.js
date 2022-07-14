@@ -1,9 +1,22 @@
+import React, { useState } from "react";
 import "./BookingEntries.css";
 import BookingEntry from "./BookingEntry";
+import BookingsFilter from "./BookingsFilter";
 
 export default function BookingEntries(props) {
+  const currentMonth = new Date().toLocaleString("en-GB", { month: "short" });
+  const [filteredMonth, setFilteredMonth] = useState(currentMonth);
+
+  const filterChangeHandler = (selectedMonth) => {
+    setFilteredMonth(selectedMonth);
+  };
+
   return (
     <div className="booking-entries">
+      <BookingsFilter
+        defaultMonth={filteredMonth}
+        onChangeFilter={filterChangeHandler}
+      />
       <BookingEntry
         id={props.bookingEntries[0].id}
         checkInDate={props.bookingEntries[0].checkInDate}
