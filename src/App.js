@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import BookingEntries from "./components/BookingEntries";
-import NewBooking from "./components/NewBooking";
+import BookingEntries from "./components/Bookings/BookingEntries";
+import NewBooking from "./components/NewBooking/NewBooking";
 import "./styles.css";
 
 const testBookingEntries = [
