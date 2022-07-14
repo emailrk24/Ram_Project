@@ -22,7 +22,7 @@ export default function BookingForm(props) {
     setEnteredCheckInDate(event.target.value);
   };
   const checkOutDateChangeHandler = (event) => {
-    setEnteredCheckInDate(event.target.value);
+    setEnteredCheckOutDate(event.target.value);
   };
   const sourceChangeHandler = (event) => {
     setEnteredSource(event.target.value);
@@ -111,7 +111,7 @@ export default function BookingForm(props) {
         <div className="new-booking__control">
           <label>Check-in</label>
           <input
-            type="date"
+            type="datetime-local"
             value={enteredCheckInDate}
             onChange={checkInDateChangeHandler}
           ></input>
@@ -119,7 +119,7 @@ export default function BookingForm(props) {
         <div className="new-booking__control">
           <label>Check-out</label>
           <input
-            type="date"
+            type="datetime-local"
             value={enteredCheckOutDate}
             onChange={checkOutDateChangeHandler}
           ></input>
@@ -159,7 +159,7 @@ export default function BookingForm(props) {
         <div className="new-booking__control">
           <label>Rent per day</label>
           <input
-            type="text"
+            type="number"
             value={enteredRentPerDay}
             onChange={rentPerDayChangeHandler}
           ></input>

@@ -2,10 +2,12 @@ import "./BookingEntry.css";
 import React, { useState } from "react";
 
 export default function BookingEntry(props) {
+  const checkInDate = new Date(props.checkInDate);
+  const checkOutDate = new Date(props.checkOutDate);
+
   const numberOfDays = () => {
     return (
-      (props.checkOutDate.getTime() - props.checkInDate.getTime()) /
-      (1000 * 3600 * 24)
+      (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 3600 * 24)
     );
   };
 
@@ -61,10 +63,10 @@ export default function BookingEntry(props) {
         {id}
       </h2>
       <h3 className="booking-entry__date">
-        {props.checkInDate.toLocaleDateString("en-GB")}
+        {checkInDate.toLocaleDateString("en-GB")}
       </h3>
       <h3 className="booking-entry__date">
-        {props.checkOutDate.toLocaleDateString("en-GB")}
+        {checkOutDate.toLocaleDateString("en-GB")}
       </h3>
       <h2 className="booking-entry__description">{props.source}</h2>
       <h2 className="booking-entry__description">{props.bookingId}</h2>

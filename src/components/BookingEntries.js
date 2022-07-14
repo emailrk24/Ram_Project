@@ -11,48 +11,50 @@ export default function BookingEntries(props) {
     setFilteredMonth(selectedMonth);
   };
 
+  // const [filteredBookings, SetFilteredBookings] = useState(
+  //   props.bookingEntries
+  // );
+
+  const filteredBookings = props.bookingEntries.filter(
+    (booking) =>
+      new Date(booking.checkInDate).toLocaleString("en-GB", {
+        month: "short"
+      }) === filteredMonth ||
+      new Date(booking.checkOutDate).toLocaleString("en-GB", {
+        month: "short"
+      }) === filteredMonth
+  );
+
   return (
     <div className="booking-entries">
       <BookingsFilter
         defaultMonth={filteredMonth}
         onChangeFilter={filterChangeHandler}
       />
-      <BookingEntry
-        id={props.bookingEntries[0].id}
-        checkInDate={props.bookingEntries[0].checkInDate}
-        checkOutDate={props.bookingEntries[0].checkOutDate}
-        source={props.bookingEntries[0].source}
-        bookingId={props.bookingEntries[0].bookingId}
-        roomNumber={props.bookingEntries[0].roomNumber}
-        numberOfRooms={props.bookingEntries[0].numberOfRooms}
-        rentPerDay={props.bookingEntries[0].rentPerDay}
-        ecAmount={props.bookingEntries[0].ecAmount}
-        lcAmount={props.bookingEntries[0].lcAmount}
-        otherBill={props.bookingEntries[0].otherBill}
-        cashAtHotel={props.bookingEntries[0].cashAtHotel}
-        UPI={props.bookingEntries[0].UPI}
-        EDC={props.bookingEntries[0].EDC}
-        appPaidAmount={props.bookingEntries[0].appPaidAmount}
-        bookingStatus={props.bookingEntries[0].bookingStatus}
-      />
-      <BookingEntry
-        id={props.bookingEntries[1].id}
-        checkInDate={props.bookingEntries[1].checkInDate}
-        checkOutDate={props.bookingEntries[1].checkOutDate}
-        source={props.bookingEntries[1].source}
-        bookingId={props.bookingEntries[1].bookingId}
-        roomNumber={props.bookingEntries[1].roomNumber}
-        numberOfRooms={props.bookingEntries[1].numberOfRooms}
-        rentPerDay={props.bookingEntries[1].rentPerDay}
-        ecAmount={props.bookingEntries[1].ecAmount}
-        lcAmount={props.bookingEntries[1].lcAmount}
-        otherBill={props.bookingEntries[1].otherBill}
-        cashAtHotel={props.bookingEntries[1].cashAtHotel}
-        UPI={props.bookingEntries[1].UPI}
-        EDC={props.bookingEntries[1].EDC}
-        appPaidAmount={props.bookingEntries[1].appPaidAmount}
-        bookingStatus={props.bookingEntries[1].bookingStatus}
-      />
+
+      {/* dynamically populate the array into a JSX element - 
+      an alternate to rendering each object from an array into a JSX element*/}
+      {filteredBookings.map((booking) => (
+        <BookingEntry
+          key={booking.id}
+          id={booking.id}
+          checkInDate={booking.checkInDate}
+          checkOutDate={booking.checkOutDate}
+          source={booking.source}
+          bookingId={booking.bookingId}
+          roomNumber={booking.roomNumber}
+          numberOfRooms={booking.numberOfRooms}
+          rentPerDay={booking.rentPerDay}
+          ecAmount={booking.ecAmount}
+          lcAmount={booking.lcAmount}
+          otherBill={booking.otherBill}
+          cashAtHotel={booking.cashAtHotel}
+          UPI={booking.UPI}
+          EDC={booking.EDC}
+          appPaidAmount={booking.appPaidAmount}
+          bookingStatus={booking.bookingStatus}
+        />
+      ))}
     </div>
   );
 }

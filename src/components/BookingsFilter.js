@@ -11,6 +11,7 @@ export default function BookingsFilter(props) {
     <div className="bookings-filter">
       <div className="bookings-filter__control">
         <label>Filter by month</label>
+        <input type="month" />
         <select value={props.defaultMonth} onChange={filterChangeHandler}>
           <option value="Jan">Jan</option>
           <option value="Feb">Feb</option>
