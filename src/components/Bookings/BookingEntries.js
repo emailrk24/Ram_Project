@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./BookingEntries.css";
-import BookingEntry from "./BookingEntry";
-import BookingsFilter from "./BookingsFilter";
+import BookingEntry from "./BookingEntryNew";
+import CommonFilter from "../CommonFilter";
 
 export default function BookingEntries(props) {
   const currentMonth = new Date().toLocaleString("en-GB", { month: "short" });
@@ -21,32 +21,17 @@ export default function BookingEntries(props) {
       }) === filteredMonth
   );
 
-  // const filteredBookings = props.bookingEntries.filter(
-  //   (booking) =>
-  //     (new Date(booking.checkInDate).toLocaleString("en-GB", {
-  //       month: "numeric"
-  //     }) === filteredMonth &&
-  //       new Date(booking.checkInDate).getFullYear() === filteredYear) ||
-  //     (new Date(booking.checkOutDate).toLocaleString("en-GB", {
-  //       month: "short"
-  //     }) === filteredMonth &&
-  //       new Date(booking.checkOutDate).getFullYear() === filteredYear)
-  // );
-
   return (
     <div className="booking-entries">
-      <BookingsFilter
+      <CommonFilter
         defaultMonth={filteredMonth}
         onChangeFilter={filterChangeHandler}
       />
-
       {/* dynamically populate the array into a JSX element - 
       an alternate to rendering each object from an array into a JSX element*/}
-
       {filteredBookings.length === 0 && (
         <p className="no-booking-entries">No bookings found</p>
       )}
-
       {filteredBookings.map((booking) => (
         <BookingEntry
           key={booking.id}

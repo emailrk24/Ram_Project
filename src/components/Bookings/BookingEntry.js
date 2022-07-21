@@ -62,13 +62,13 @@ export default function BookingEntry(props) {
       <h2 className="booking-entry__description" onClick={idClickHandler}>
         {id}
       </h2>
-      <h3 className="booking-entry__date">
+      <h5 className="booking-entry__date">
         {checkInDate.toLocaleDateString("en-GB")}
-      </h3>
-      <h3 className="booking-entry__date">
+      </h5>
+      <h4 className="booking-entry__date">
         {checkOutDate.toLocaleDateString("en-GB")}
-      </h3>
-      <h2 className="booking-entry__description">{props.source}</h2>
+      </h4>
+      <h4 className="booking-entry__description">{props.source}</h4>
       <h2 className="booking-entry__description">{props.bookingId}</h2>
       <h2 className="booking-entry__description">{props.roomNumber}</h2>
       <h2 className="booking-entry__description">{props.numberOfRooms}</h2>
