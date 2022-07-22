@@ -45,11 +45,11 @@ const testBookingEntries = [
     bookingStatus: "INHOUSE"
   },
   {
-    id: 9998,
+    id: 9000,
     checkInDate: "2022-07-20",
     checkOutDate: "2022-07-25",
     source: "WalkIn",
-    bookingId: "G28AJ",
+    bookingId: "CF6AJ",
     roomNumber: "1A",
     numberOfRooms: 1,
     rentPerDay: 100,
@@ -63,11 +63,11 @@ const testBookingEntries = [
     bookingStatus: "INHOUSE"
   },
   {
-    id: 9998,
+    id: 9001,
     checkInDate: "2022-07-20",
     checkOutDate: "2022-07-25",
     source: "WalkIn",
-    bookingId: "G28AJ",
+    bookingId: "641108",
     roomNumber: "1A",
     numberOfRooms: 1,
     rentPerDay: 100,
@@ -100,11 +100,16 @@ const testExpenseEntries = [
 ];
 
 export default function App() {
-  const currentMonth = new Date().toLocaleString("en-GB", { month: "short" });
-  const [filteredMonth, setFilteredMonth] = useState(currentMonth);
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth() + 1;
+  const currentMonthYear =
+    currentYear + "-" + (currentMonth > 10 ? currentMonth : "0" + currentMonth);
 
-  const filterChangeHandler = (selectedMonth) => {
-    setFilteredMonth(selectedMonth);
+  const [filteredMonthYear, setFilteredMonthYear] = useState(currentMonthYear);
+
+  const filterChangeHandler = (selectedMonthYear) => {
+    console.log("App.js - filterChangeHandler : " + selectedMonthYear);
+    setFilteredMonthYear(selectedMonthYear);
   };
 
   const [bookings, setBookings] = useState(testBookingEntries);
@@ -125,14 +130,20 @@ export default function App() {
   return (
     <div className="App">
       <CommonFilter
-        defaultMonth={filteredMonth}
+        defaultMonthYear={filteredMonthYear}
         onChangeFilter={filterChangeHandler}
       />
+      <BookingEntries
+        bookingEntries={bookings}
+        filteredMonthYear={filteredMonthYear}
+      />
       <NewBooking onSaveBooking={addBookingHandler} />
-      <BookingEntries bookingEntries={bookings} />
       {/** <BasicTable bookingEntries={bookings} /> */}
+      <ExpenseEntries
+        expenseEntries={expenses}
+        filteredMonthYear={filteredMonthYear}
+      />
       <NewExpense onSaveExpense={addExpenseHandler} />
-      <ExpenseEntries expenseEntries={expenses} />
     </div>
   );
 }
