@@ -1,30 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap");
 
-* {
+/* * {
   box-sizing: border-box;
-}
+} */
 
 html {
   font-family: "Noto Sans JP", sans-serif;
   font-size: 1rem;
 }
 
-body {
+/* body {
   margin: 0;
-  /* background-color: #62db86; */
-}
-
-.MuiTableRow-root th:first-child {
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-}
-
-.MuiTableRow-root td:first-child {
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-}
-
-.MuiTableRow-root td:last-child {
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-}
+  background-color: #62db86;
+} */

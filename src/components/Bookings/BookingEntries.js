@@ -1,40 +1,47 @@
-import React, { useState } from "react";
-import "./BookingEntries.css";
-import CommonFilter from "../CommonFilter";
+import React, { useState, forwardRef } from "react";
+import MaterialTable, { MTableToolbar, MTableBodyRow } from "material-table";
+import { Grid } from "@material-ui/core";
+import AddBox from "@material-ui/icons/AddBox";
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Check from "@material-ui/icons/Check";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ChevronRight from "@material-ui/icons/ChevronRight";
+import Clear from "@material-ui/icons/Clear";
+import DeleteOutline from "@material-ui/icons/DeleteOutline";
+import Edit from "@material-ui/icons/Edit";
+import FilterList from "@material-ui/icons/FilterList";
+import FirstPage from "@material-ui/icons/FirstPage";
+import LastPage from "@material-ui/icons/LastPage";
+import Remove from "@material-ui/icons/Remove";
+import SaveAlt from "@material-ui/icons/SaveAlt";
+import Search from "@material-ui/icons/Search";
+import ViewColumn from "@material-ui/icons/ViewColumn";
 
-import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-    fontSize: 14
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14
-  }
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    //backgroundColor: theme.palette.action.hover
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0
-  }
-}));
+const tableIcons = {
+  Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+  Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+  Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+  DetailPanel: forwardRef((props, ref) => (
+    <ChevronRight {...props} ref={ref} />
+  )),
+  Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+  Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+  Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+  FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+  LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+  NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+  PreviousPage: forwardRef((props, ref) => (
+    <ChevronLeft {...props} ref={ref} />
+  )),
+  ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+  SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
+  ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+};
 
 export default function BookingEntries(props) {
-  // console.log("Im before filteredBookings : " + props.filteredMonth);
-
   let yearMonth = props.filteredMonthYear.split("-");
 
   const filteredBookings = props.bookingEntries.filter(
@@ -42,16 +49,6 @@ export default function BookingEntries(props) {
       new Date(booking.checkInDate).getMonth() + 1 === Number(yearMonth[1]) &&
       new Date(booking.checkInDate).getFullYear() === Number(yearMonth[0])
   );
-
-  /* const filteredBookings = props.bookingEntries.filter(
-    (booking) =>
-      new Date(booking.checkInDate).toLocaleString("en-GB", {
-        month: "short"
-      }) === props.filteredMonth ||
-      new Date(booking.checkOutDate).toLocaleString("en-GB", {
-        month: "short"
-      }) === props.filteredMonth
-  ); */
 
   const numberOfDays = (booking) => {
     return (
@@ -80,112 +77,134 @@ export default function BookingEntries(props) {
     );
   };
 
-  const [id, setId] = useState(props.id);
+  // const [tableData, setTableData] = useState(filteredBookings);
 
-  const idClickHandler = () => {
-    setId("changedId");
-    console.log(id);
-  };
+  const columns = [
+    { title: "S.No", field: "id", align: "center" },
+    { title: "Check-in", field: "checkInDate", align: "center" },
+    { title: "Check-out", field: "checkOutDate", align: "center" },
+    { title: "Source", field: "source", align: "center" },
+    { title: "Booking Id", field: "bookingId", align: "center" },
+    { title: "Room No.", field: "roomNumber", align: "center" },
+    { title: "No. of rooms", field: "numberOfRooms", align: "center" },
+    {
+      title: "No. of days",
+      align: "center",
+      render: (rowData) => <div>{numberOfDays(rowData)}</div>
+    },
+    {
+      title: "Rent per day",
+      field: "rentPerDay",
+      align: "center",
+      type: "currency",
+      currencySetting: { currencyCode: "INR", minimumFractionDigits: 2 }
+    },
+    {
+      title: "EC amount",
+      field: "ecAmount",
+      align: "center",
+      type: "currency",
+      currencySetting: { currencyCode: "INR", minimumFractionDigits: 2 }
+    },
+    {
+      title: "LC amount",
+      field: "lcAmount",
+      align: "center",
+      type: "currency",
+      currencySetting: { currencyCode: "INR", minimumFractionDigits: 2 }
+    },
+    {
+      title: "Other bill",
+      field: "otherBill",
+      align: "center",
+      type: "currency",
+      currencySetting: { currencyCode: "INR", minimumFractionDigits: 2 }
+    },
+    {
+      title: "Total bill",
+      align: "center",
+      type: "currency",
+      currencySetting: { currencyCode: "INR", minimumFractionDigits: 2 },
+      render: (rowData) => <div>{totalBill(rowData)}</div>
+    },
+    { title: "Cash at hotel", field: "cashAtHotel", align: "center" },
+    { title: "UPI", field: "UPI", align: "center" },
+    { title: "EDC", field: "EDC", align: "center" },
+    { title: "App paid amount", field: "appPaidAmount", align: "center" },
+    {
+      title: "Pending amount",
+      align: "center",
+      render: (rowData) => <div>{pendingAmount(rowData)}</div>
+    },
+    { title: "Booking status", field: "bookingStatus", align: "center" }
+  ];
 
   return (
-    <div className="booking-entries">
-      {/* <CommonFilter
-        defaultMonth={filteredMonth}
-        onChangeFilter={filterChangeHandler}
-      /> */}
-      {/* dynamically populate the array into a JSX element - 
-      an alternate to rendering each object from an array into a JSX element*/}
-
+    <div>
       {filteredBookings.length === 0 && (
         <p className="no-booking-entries">No booking found</p>
       )}
       {filteredBookings.length > 0 && (
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>S.No</StyledTableCell>
-                <StyledTableCell align="right">Check-in</StyledTableCell>
-                <StyledTableCell align="right">Check-out</StyledTableCell>
-                <StyledTableCell align="right">Source</StyledTableCell>
-                <StyledTableCell align="right">Booking Id</StyledTableCell>
-                <StyledTableCell align="right">Room No.</StyledTableCell>
-                <StyledTableCell align="right">No. of rooms</StyledTableCell>
-                <StyledTableCell align="right">No. of days</StyledTableCell>
-                <StyledTableCell align="right">Rent per day</StyledTableCell>
-                <StyledTableCell align="right">EC amount</StyledTableCell>
-                <StyledTableCell align="right">LC amount</StyledTableCell>
-                <StyledTableCell align="right">Other bill</StyledTableCell>
-                <StyledTableCell align="right">Total bill</StyledTableCell>
-                <StyledTableCell align="right">Cash at hotel</StyledTableCell>
-                <StyledTableCell align="right">UPI</StyledTableCell>
-                <StyledTableCell align="right">EDC</StyledTableCell>
-                <StyledTableCell align="right">App paid amount</StyledTableCell>
-                <StyledTableCell align="right">Pending amount</StyledTableCell>
-                <StyledTableCell align="right">Booking status</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredBookings.map((booking) => (
-                <StyledTableRow key={booking.id}>
-                  <StyledTableCell scope="row" onClick={idClickHandler}>
-                    {booking.id}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {new Date(booking.checkInDate).toLocaleDateString("en-GB")}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {new Date(booking.checkOutDate).toLocaleDateString("en-GB")}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {booking.source}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {booking.bookingId}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {booking.roomNumber}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {booking.numberOfRooms}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {numberOfDays(booking)}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {booking.rentPerDay}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {booking.ecAmount}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {booking.lcAmount}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {booking.otherBill}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {totalBill(booking)}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {booking.cashAtHotel}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{booking.UPI}</StyledTableCell>
-                  <StyledTableCell align="right">{booking.EDC}</StyledTableCell>
-                  <StyledTableCell align="right">
-                    {booking.appPaidAmount}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {pendingAmount(booking)}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {booking.bookingStatus}
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <MaterialTable
+          columns={columns}
+          data={filteredBookings}
+          icons={tableIcons}
+          // title="Booking details"
+          components={{
+            Toolbar: (props) => (
+              <div
+                style={{
+                  // backgroundColor: "#9c27b0",
+                  color: "#fff"
+                  // fontWeight: "bold"
+                }}
+              >
+                <MTableToolbar {...props} />
+              </div>
+            ),
+            Row: (props) => (
+              <Grid style={{ backgroundColor: "#e8eaf5", display: "contents" }}>
+                <MTableBodyRow {...props} />
+              </Grid>
+            )
+          }}
+          options={{
+            // showTitle: true,
+            sorting: true,
+            search: true,
+            searchFieldAlignment: "right",
+            searchAutoFocus: false,
+            searchFieldVariant: "standard",
+            // filtering: true,
+            paging: false,
+            // pageSizeOptions: [2, 5, 10, 20, 25, 50, 100],
+            // pageSize: 5,
+            // paginationType: "stepped",
+            // showFirstLastPageButtons: false,
+            // paginationPosition: "both",
+            // exportButton: true,
+            // exportAllData: true,
+            // exportFileName: "TableData",
+            addRowPosition: "first",
+            actionsColumnIndex: -1,
+            // selection: true,
+            // showSelectAllCheckbox: false,
+            // showTextRowsSelected: false,
+            // selectionProps: (rowData) => ({
+            //   disabled: rowData.age == null
+            //   // color:"primary"
+            // }),
+            // grouping: true,
+            columnsButton: true,
+            rowStyle: (data, index) =>
+              index % 2 === 0 ? { background: "#FFEFD5" } : null,
+            headerStyle: {
+              background: "#9c27b0", //"#ba68c8",
+              color: "#fff",
+              fontWeight: "bold"
+            }
+          }}
+        />
       )}
     </div>
   );

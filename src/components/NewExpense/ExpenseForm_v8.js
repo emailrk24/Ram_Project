@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import "./ExpenseForm.css";
 
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
 export default function ExpenseForm(props) {
   const [enteredExpenseType, setEnteredExpenseType] = useState("");
   const [enteredExpenseDate, setEnteredExpenseDate] = useState("");
@@ -21,7 +29,6 @@ export default function ExpenseForm(props) {
   };
 
   const formSubmitHandler = (event) => {
-    console.log("Im in formSubmitHandler");
     event.preventDefault();
 
     const expenseDetail = {
@@ -41,10 +48,26 @@ export default function ExpenseForm(props) {
     setEnteredAmount("");
   };
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <div className="new-expense">
-      <form onSubmit={formSubmitHandler}>
-        <div className="new-expense__controls">
+    <div>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Add New Expense
+      </Button>
+      <Dialog>
+        <DialogContent
+          className="new-expense__controls"
+          onSubmit={formSubmitHandler}
+        >
           <div className="new-expense__control">
             <label>Expense type (dropdown)</label>
             <input
@@ -77,14 +100,14 @@ export default function ExpenseForm(props) {
               onChange={amountChangeHandler}
             ></input>
           </div>
-        </div>
-        <div className="new-expense__actions">
+        </DialogContent>
+        <DialogActions className="new-expense__actions">
           <button type="button" onClick={props.onCancelExpense}>
             Cancel
           </button>
           <button type="submit">Add expense</button>
-        </div>
-      </form>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
