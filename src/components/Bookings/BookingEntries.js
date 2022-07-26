@@ -196,12 +196,18 @@ export default function BookingEntries(props) {
             // }),
             // grouping: true,
             columnsButton: true,
+            cellStyle: {
+              fontFamily: "Noto Sans JP",
+              fontSize: "0.80rem"
+            },
             rowStyle: (data, index) =>
               index % 2 === 0 ? { background: "#FFEFD5" } : null,
             headerStyle: {
               background: "#9c27b0", //"#ba68c8",
               color: "#fff",
-              fontWeight: "bold"
+              fontWeight: "bold",
+              fontFamily: "Noto Sans JP",
+              fontSize: "0.80rem"
             }
           }}
         />

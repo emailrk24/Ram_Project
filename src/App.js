@@ -12,6 +12,15 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
+import Divider from "@mui/material/Divider";
+
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 
 const testBookingEntries = [
   {
@@ -106,8 +115,8 @@ const testBookingEntries = [
   },
   {
     id: 8999,
-    checkInDate: "2022-07-24",
-    checkOutDate: "2022-07-24",
+    checkInDate: "2022-05-24",
+    checkOutDate: "2022-05-24",
     source: "App",
     bookingId: "SK4 1LW",
     roomNumber: "5A",
@@ -137,6 +146,20 @@ const testExpenseEntries = [
     expenseType: "Staff welfare",
     expenseDate: "2022-07-20",
     description: "Manoj",
+    amount: "200"
+  },
+  {
+    id: 997,
+    expenseType: "Utensils",
+    expenseDate: "2022-05-20",
+    description: "Plates",
+    amount: "200"
+  },
+  {
+    id: 996,
+    expenseType: "Maintenance",
+    expenseDate: "2022-07-20",
+    description: "Cleaning",
     amount: "200"
   }
 ];
@@ -180,17 +203,55 @@ export default function App() {
   const handleClickExpenseOpen = () => setOpen(true);
   const handleCloseExpense = () => setOpen(false);
 
+  const [tabValue, setTabValue] = useState("1");
+
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
   return (
     <div className="App">
-      <CommonFilter
-        defaultMonthYear={filteredMonthYear}
-        onChangeFilter={filterChangeHandler}
-      />
-      <ExpenseEntries
-        expenseEntries={expenses}
-        filteredMonthYear={filteredMonthYear}
-      />
-      <Accordion>
+      <div style={{ fontSize: "2rem" }} align="center">
+        Hotel - Expense Management Platform
+      </div>
+      <Divider />
+      <Box
+        sx={{ width: "100%", fontFamily: "Noto Sans JP", fontSize: "0.80rem" }}
+      >
+        <Tabs
+          value={tabValue}
+          onChange={handleTabChange}
+          variant="fullWidth"
+          textColor="secondary"
+          indicatorColor="secondary"
+        >
+          <Tab value="1" icon={<CalendarMonthIcon />} label="Bookings" />
+          <Tab value="2" icon={<AccountBalanceWalletIcon />} label="Expenses" />
+          <Tab value="3" icon={<MenuBookIcon />} label="Accounts" />
+          <CommonFilter
+            defaultMonthYear={filteredMonthYear}
+            onChangeFilter={filterChangeHandler}
+          />
+        </Tabs>
+      </Box>
+      <TabPanel value={tabValue} index={"1"}>
+        <BookingEntries
+          bookingEntries={bookings}
+          filteredMonthYear={filteredMonthYear}
+        />
+        <NewBooking onSaveBooking={addBookingHandler} />
+      </TabPanel>
+      <TabPanel value={tabValue} index={"2"}>
+        <ExpenseEntries
+          expenseEntries={expenses}
+          filteredMonthYear={filteredMonthYear}
+        />
+        <NewExpense onSaveExpense={addExpenseHandler} />
+      </TabPanel>
+      <TabPanel value={tabValue} index={"3"}>
+        Account details
+      </TabPanel>
+      {/* <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -222,14 +283,16 @@ export default function App() {
               expenseEntries={expenses}
               filteredMonthYear={filteredMonthYear}
             />
-            <NewExpenseFormDialog>
-              <ExpenseForm onSaveExpense={addExpenseHandler} />
-            </NewExpenseFormDialog>
             <NewExpense onSaveExpense={addExpenseHandler} />
-            {/* <ExpenseForm onSaveExpense={addExpenseHandler} /> */}
           </Typography>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
     </div>
   );
+}
+
+function TabPanel(props) {
+  const { children, value, index } = props;
+  // console.log(children + " # " + value + " # " + index);
+  return <div>{value === index && children}</div>;
 }
